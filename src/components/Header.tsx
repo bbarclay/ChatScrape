@@ -1,6 +1,6 @@
 // src/components/Header.tsx
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBeer,
@@ -8,13 +8,17 @@ import {
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { CrawlContext } from '../context/CrawlContext';
 
-interface HeaderProps {
-  isCrawling: boolean;
-}
-
-const Header: React.FC<HeaderProps> = ({ isCrawling }) => {
+const Header: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const crawlContext = useContext(CrawlContext);
+
+  if (!crawlContext) {
+    throw new Error('Header must be used within a CrawlProvider');
+  }
+
+  const { isCrawling } = crawlContext;
 
   return (
     <div className="bg-gray-500 text-white p-4 flex justify-between items-center">
