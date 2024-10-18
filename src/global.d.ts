@@ -2,7 +2,7 @@
 
 export {};
 
-// Define the Channels type first
+// Define the Channels type
 type Channels =
   | 'ipc-example'
   | 'dialog:openDirectory'

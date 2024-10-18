@@ -110,8 +110,9 @@ function App() {
 
     window.electron.crawl.onCrawlOutput(handleCrawlOutput);
     window.electron.crawl.onCrawlStatus(handleCrawlStatusUpdate);
-    window.electron.crawl.onCrawlLog(handleCrawlLog);
-    window.electron.crawl.onCrawlError(handleCrawlError);
+    // Remove the following two lines as they are not defined in the crawl object
+    // window.electron.crawl.onCrawlLog(handleCrawlLog);
+    // window.electron.crawl.onCrawlError(handleCrawlError);
 
   }, []);
 
@@ -223,13 +224,13 @@ function App() {
             outputDir={outputDir}
             handleSelectDirectory={handleSelectDirectory}
             setUrl={setUrl}
-            setDepth={setCrawlDepth}
+            setCrawlDepth={setCrawlDepth}
             setCssSelector={setCssSelector}
             setMaxPages={setMaxPages}
             setCustomFileName={setCustomFileName}
             crawlStatus={crawlStatus}
             url={url}
-            depth={crawlDepth}
+            crawlDepth={crawlDepth}
             cssSelector={cssSelector}
             maxPages={maxPages}
             customFileName={customFileName}
@@ -240,7 +241,6 @@ function App() {
           <div className="flex-1 overflow-y-auto h-[calc(100vh-4rem)]">
             <OutputDisplay
               output={output}
-              outputEndRef={outputEndRef}
               clearOutput={clearOutput}
             />
           </div>

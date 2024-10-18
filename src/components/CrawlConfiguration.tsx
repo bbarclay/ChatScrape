@@ -6,12 +6,14 @@ interface CrawlConfigurationProps {
   outputDir: string | null;
   handleSelectDirectory: () => Promise<void>;
   setUrl: React.Dispatch<React.SetStateAction<string>>;
+  setCrawlDepth: React.Dispatch<React.SetStateAction<number>>;
   setCssSelector: React.Dispatch<React.SetStateAction<string>>;
   setMaxPages: React.Dispatch<React.SetStateAction<number>>;
   setCustomFileName: React.Dispatch<React.SetStateAction<string>>;
   setMatchPattern?: React.Dispatch<React.SetStateAction<string>>;
   crawlStatus: string;
   url: string;
+  crawlDepth: number;
   cssSelector: string;
   maxPages: number;
   customFileName: string;
@@ -28,12 +30,14 @@ const CrawlConfiguration: React.FC<CrawlConfigurationProps> =
     outputDir,
     handleSelectDirectory,
     setUrl,
+    setCrawlDepth,
     setCssSelector,
     setMaxPages,
     setCustomFileName,
     setMatchPattern,
     crawlStatus,
     url,
+    crawlDepth,
     cssSelector,
     maxPages,
     customFileName,
@@ -81,6 +85,29 @@ const CrawlConfiguration: React.FC<CrawlConfigurationProps> =
             required
             disabled={isCrawling}
           />
+        </div>
+
+        {/* Crawl Depth Input */}
+        <div className="mb-4">
+          <label
+            htmlFor="crawlDepth"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Crawl Depth:
+          </label>
+          <input
+            id="crawlDepth"
+            type="number"
+            value={crawlDepth}
+            onChange={(e) => setCrawlDepth(parseInt(e.target.value, 10))}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            min="-1"
+            required
+            disabled={isCrawling}
+          />
+          <p className="text-xs text-gray-500">
+            Set to -1 for unlimited depth, 0 for current page only, or a positive number for specific depth.
+          </p>
         </div>
 
         {/* Optional: Match Pattern Input */}
@@ -232,3 +259,4 @@ CrawlConfiguration.defaultProps = {
 };
 
 export default CrawlConfiguration;
+
