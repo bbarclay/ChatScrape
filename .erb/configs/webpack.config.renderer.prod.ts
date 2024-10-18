@@ -23,7 +23,7 @@ const configuration: webpack.Configuration = {
 
   mode: 'production',
 
-  target: ['web', 'electron-renderer', "@builder.io/gpt-crawler"],
+  target: ['web', 'electron-renderer'],
 
   entry: [path.join(webpackPaths.srcRendererPath, 'index.tsx')],
 
