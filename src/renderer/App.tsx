@@ -18,7 +18,7 @@ function App() {
   );
   const [crawlDepth, setCrawlDepth] = useState<number>(
     parseInt(localStorage.getItem('crawlDepth') || '-1'),
-  ); // Default to unlimited depth
+  );
   const [cssSelector, setCssSelector] = useState<string>(
     localStorage.getItem('cssSelector') || 'body',
   );
@@ -45,7 +45,6 @@ function App() {
     }
   }, []);
 
-  // Save to localStorage when values change
   useEffect(() => {
     localStorage.setItem('url', url);
   }, [url]);
@@ -69,17 +68,11 @@ function App() {
   useEffect(() => {
     const handleCrawlOutput = (data: string) => {
       const parsedMessages = parseCrawlOutput(data);
+      setOutput((prev) => [...prev, ...parsedMessages]);
+    };
 
-      setOutput((prev) => {
-        const newMessages = parsedMessages.filter(
-          (newMsg) =>
-            !prev.some(
-              (msg) =>
-                msg.content === newMsg.content && msg.type === newMsg.type,
-            ),
-        );
-        return [...prev, ...newMessages];
-      });
+    const handleCrawlError = (error: string) => {
+      setOutput((prev) => [...prev, { type: 'error', content: error }]);
     };
 
     const handleCrawlStatusUpdate = (status: string) => {
@@ -93,18 +86,7 @@ function App() {
       };
 
       setCrawlStatus(cleanStatus);
-      setOutput((prev) => {
-        if (
-          prev.some(
-            (msg) =>
-              msg.content === parsedStatus.content &&
-              msg.type === parsedStatus.type,
-          )
-        ) {
-          return prev;
-        }
-        return [...prev, parsedStatus];
-      });
+      setOutput((prev) => [...prev, parsedStatus]);
 
       if (progress) {
         const { current, total } = progress;
@@ -119,25 +101,19 @@ function App() {
 
       if (isFinished) {
         setIsCrawling(false);
-        if (crawlDepth === 1) {
-          setFinishedRequests(1);
-          setCrawlStatus('Crawl completed.');
-          setOutput((prev) => [
-            ...prev,
-            { type: 'success', content: 'Crawl completed.' },
-          ]);
-        }
       }
+    };
+
+    const handleCrawlLog = (log: string) => {
+      setOutput((prev) => [...prev, { type: 'info', content: log }]);
     };
 
     window.electron.crawl.onCrawlOutput(handleCrawlOutput);
     window.electron.crawl.onCrawlStatus(handleCrawlStatusUpdate);
+    window.electron.crawl.onCrawlLog(handleCrawlLog);
+    window.electron.crawl.onCrawlError(handleCrawlError);
 
-    return () => {
-      window.electron.crawl.onCrawlOutput(handleCrawlOutput);
-      window.electron.crawl.onCrawlStatus(handleCrawlStatusUpdate);
-    };
-  }, [crawlDepth]);
+  }, []);
 
   useEffect(() => {
     if (outputEndRef.current) {
@@ -180,12 +156,8 @@ function App() {
       matchPattern = `${cleanUrl}/**`;
     }
 
-    if (crawlDepth === 1) {
-      setTotalRequests(1);
-      setFinishedRequests(0);
-    } else {
-      setFinishedRequests(0);
-    }
+    setTotalRequests(0);
+    setFinishedRequests(0);
 
     const config = {
       url,
@@ -204,16 +176,6 @@ function App() {
         ...prev,
         { type: 'info', content: 'Crawl initiated...' },
       ]);
-
-      if (crawlDepth === 1) {
-        setFinishedRequests(1);
-        setCrawlStatus('Crawl completed.');
-        setOutput((prev) => [
-          ...prev,
-          { type: 'success', content: 'Crawl completed.' },
-        ]);
-        setIsCrawling(false);
-      }
     } catch (error: any) {
       console.error('Error initiating crawl:', error);
       setOutput((prev) => [
@@ -289,3 +251,4 @@ function App() {
 }
 
 export default App;
+

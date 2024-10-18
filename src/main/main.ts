@@ -6,8 +6,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-
-const { startCrawl } = require('./crawler'); // Import the crawler module
+import { startCrawl, CrawlConfig, SendMessage } from './crawler'; // Updated import
+import { ChildProcess } from 'child_process';
 
 class AppUpdater {
   constructor() {
@@ -18,7 +18,7 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-let crawlProcess: any = null; // To keep track of the child process
+let crawlProcess: ChildProcess | null = null; // Use ChildProcess type
 
 // Existing IPC channel for 'ipc-example'
 ipcMain.on('ipc-example', async (event, arg) => {
@@ -46,54 +46,41 @@ ipcMain.handle('dialog:openDirectory', async () => {
 });
 
 // IPC handler to start the crawl
-ipcMain.handle('start-crawl', async (event, config) => {
+ipcMain.handle('start-crawl', async (event, config: CrawlConfig) => {
   if (crawlProcess) {
     event.sender.send('crawl-status', 'A crawl is already in progress.');
     return;
   }
 
+  // Define the sendMessage callback
+  const sendMessage: SendMessage = (channel: string, message: string) => {
+    event.sender.send(channel, message);
+  };
+
   try {
     // Start the crawler process
-    crawlProcess = startCrawl(config);
+    crawlProcess = startCrawl(config, sendMessage);
 
-    // Listen to stdout and stderr from the crawler process
-    crawlProcess.stdout.on('data', (data: string) => {
-      event.sender.send('crawl-output', data);
-    });
+    if (!crawlProcess) {
+      event.sender.send('crawl-status', 'Failed to start crawl process.');
+      return;
+    }
 
-    crawlProcess.stderr.on('data', (data: string) => {
-      event.sender.send('crawl-output', `Error: ${data}`);
-    });
-
-    crawlProcess.on('error', (error: Error) => {
-      event.sender.send(
-        'crawl-status',
-        `Crawl encountered an error: ${error.message}`,
-      );
-      log.error('Crawl process error:', error);
-      crawlProcess = null;
-    });
-
-    crawlProcess.on('exit', (code: number) => {
+    // Handle process exit
+    crawlProcess.on('exit', (code: number | null, signal: string | null) => {
       if (code === 0) {
         event.sender.send('crawl-status', 'Crawl completed successfully.');
       } else {
-        event.sender.send('crawl-status', `Crawl exited with code ${code}.`);
+        event.sender.send('crawl-status', `Crawl exited with code ${code} and signal ${signal}.`);
       }
-      log.info(`Crawl process exited with code ${code}`);
+      log.info(`Crawl process exited with code ${code} and signal ${signal}`);
       crawlProcess = null;
     });
 
-    crawlProcess.on('close', (code: number) => {
-      if (code === 0) {
-        event.sender.send('crawl-status', 'Crawl process closed successfully.');
-      } else {
-        event.sender.send(
-          'crawl-status',
-          `Crawl process closed with code ${code}.`,
-        );
-      }
-      log.info(`Crawl process closed with code ${code}`);
+    // Handle process errors
+    crawlProcess.on('error', (error: Error) => {
+      event.sender.send('crawl-status', `Crawl encountered an error: ${error.message}`);
+      log.error('Crawl process error:', error);
       crawlProcess = null;
     });
 

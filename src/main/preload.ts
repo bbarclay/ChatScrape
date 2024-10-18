@@ -10,6 +10,8 @@ const channels = [
   'stop-crawl',
   'crawl-output',
   'crawl-status',
+  'crawl-log',
+  'crawl-error'
 ] as const;
 
 // Derive the TypeScript type from the channels array
@@ -84,9 +86,20 @@ const electronHandler = {
         callback(status);
       });
     },
+    onCrawlLog: (callback: (log: string) => void) => {
+      ipcRenderer.on('crawl-log', (event, log) => {
+        callback(log);
+      });
+    },
+    onCrawlError: (callback: (error: string) => void) => {
+      ipcRenderer.on('crawl-error', (event, error) => {
+        callback(error);
+      });
+    },
   },
 };
 
 contextBridge.exposeInMainWorld('electron', electronHandler);
 
 export type ElectronHandler = typeof electronHandler;
+
