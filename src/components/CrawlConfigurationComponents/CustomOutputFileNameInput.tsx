@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface CustomOutputFileNameInputProps {
   customFileName: string;
@@ -7,6 +7,28 @@ interface CustomOutputFileNameInputProps {
 }
 
 const CustomOutputFileNameInput: React.FC<CustomOutputFileNameInputProps> = ({ customFileName, setCustomFileName, isCrawling }) => {
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    validateFileName(customFileName);
+  }, [customFileName]);
+
+  const validateFileName = (fileName: string) => {
+    const trimmedFileName = fileName.trim();
+    if (trimmedFileName === '') {
+      setError('File name cannot be empty');
+    } else if (!trimmedFileName.endsWith('.json')) {
+      setError('File name must end with .json');
+    } else {
+      setError('');
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newFileName = e.target.value.trim();
+    setCustomFileName(newFileName);
+  };
+
   return (
     <div className="mb-4">
       <label htmlFor="customFileName" className="block text-sm font-medium text-gray-700">
@@ -16,16 +38,24 @@ const CustomOutputFileNameInput: React.FC<CustomOutputFileNameInputProps> = ({ c
         id="customFileName"
         type="text"
         value={customFileName}
-        onChange={(e) => setCustomFileName(e.target.value)}
-        className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+        onChange={handleInputChange}
+        className={`mt-1 block w-full p-2 border ${error ? 'border-red-500' : 'border-gray-300'} rounded-md`}
         required
         disabled={isCrawling}
+        aria-invalid={error ? 'true' : 'false'}
+        aria-describedby="fileNameError"
       />
-      <p className="text-xs text-gray-500">
-        Ensure the file name ends with .json to prevent overwriting.
+      {error && (
+        <p id="fileNameError" className="text-xs text-red-500 mt-1">
+          {error}
+        </p>
+      )}
+      <p className="text-xs text-gray-500 mt-1">
+        The file name must end with .json to prevent overwriting.
       </p>
     </div>
   );
 };
 
 export default CustomOutputFileNameInput;
+

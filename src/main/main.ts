@@ -1,13 +1,20 @@
-// src/main/main.ts
+/* eslint global-require: off, no-console: off, promise/always-return: off */
 
+/**
+ * This module executes inside of electron's main process. You can start
+ * electron renderer process from here and communicate with the other processes
+ * through IPC.
+ *
+ * When running `npm run build` or `npm run build:main`, this file is compiled to
+ * `./src/main.js` using webpack. This gives us some performance wins.
+ */
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import { startCrawl, CrawlConfig, SendMessage } from './crawler'; // Updated import
-import { ChildProcess } from 'child_process';
+import { crawl } from './crawler';
 
 class AppUpdater {
   constructor() {
@@ -18,100 +25,33 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-let crawlProcess: ChildProcess | null = null; // Use ChildProcess type
 
-// Existing IPC channel for 'ipc-example'
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
-// New IPC handler for 'dialog:openDirectory'
-ipcMain.handle('dialog:openDirectory', async () => {
-  try {
-    const result = await dialog.showOpenDialog({
-      properties: ['openDirectory'],
-      title: 'Select Output Directory',
-    });
+ipcMain.handle('select-directory', async () => {
+  const result = await dialog.showOpenDialog(mainWindow!, {
+    properties: ['openDirectory']
+  });
+  return result;
+});
 
-    if (result.canceled) {
-      return null;
-    }
-    return result.filePaths;
-  } catch (error: any) {
-    log.error('Error opening directory dialog:', error);
-    return null;
+ipcMain.handle('start-crawl', async (_, options) => {
+  try {
+    const results = await crawl(options);
+    return results;
+  } catch (error) {
+    console.error('Error during crawl:', error);
+    throw error;
   }
 });
 
-// IPC handler to start the crawl
-ipcMain.handle('start-crawl', async (event, config: CrawlConfig) => {
-  if (crawlProcess) {
-    event.sender.send('crawl-status', 'A crawl is already in progress.');
-    return;
-  }
-
-  // Define the sendMessage callback
-  const sendMessage: SendMessage = (channel: string, message: string) => {
-    event.sender.send(channel, message);
-  };
-
-  try {
-    // Start the crawler process
-    crawlProcess = startCrawl(config, sendMessage);
-
-    if (!crawlProcess) {
-      event.sender.send('crawl-status', 'Failed to start crawl process.');
-      return;
-    }
-
-    // Handle process exit
-    crawlProcess.on('exit', (code: number | null, signal: string | null) => {
-      if (code === 0) {
-        event.sender.send('crawl-status', 'Crawl completed successfully.');
-      } else {
-        event.sender.send('crawl-status', `Crawl exited with code ${code} and signal ${signal}.`);
-      }
-      log.info(`Crawl process exited with code ${code} and signal ${signal}`);
-      crawlProcess = null;
-    });
-
-    // Handle process errors
-    crawlProcess.on('error', (error: Error) => {
-      event.sender.send('crawl-status', `Crawl encountered an error: ${error.message}`);
-      log.error('Crawl process error:', error);
-      crawlProcess = null;
-    });
-
-    event.sender.send('crawl-status', 'Crawl started successfully.');
-    log.info('Crawl started successfully.');
-  } catch (error: any) {
-    console.error('Error starting crawl:', error);
-    log.error('Error starting crawl:', error);
-    event.sender.send('crawl-status', `Error starting crawl: ${error.message}`);
-  }
-});
-
-// IPC handler to stop the crawl
-ipcMain.handle('stop-crawl', async (event) => {
-  if (crawlProcess) {
-    try {
-      crawlProcess.kill();
-      crawlProcess = null;
-      event.sender.send('crawl-status', 'Crawl stopped by user.');
-      log.info('Crawl stopped by user.');
-    } catch (error: any) {
-      console.error('Error stopping crawl:', error);
-      log.error('Error stopping crawl:', error);
-      event.sender.send(
-        'crawl-status',
-        `Error stopping crawl: ${error.message}`,
-      );
-    }
-  } else {
-    event.sender.send('crawl-status', 'No crawl is currently running.');
-  }
+ipcMain.handle('stop-crawl', async () => {
+  // Implement stop crawl logic here
+  return 'Crawl stopped';
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -133,7 +73,7 @@ const installExtensions = async () => {
 
   return installer
     .default(
-      extensions.map((name: string) => installer[name]),
+      extensions.map((name) => installer[name]),
       forceDownload,
     )
     .catch(console.log);
@@ -158,9 +98,9 @@ const createWindow = async () => {
     height: 728,
     icon: getAssetPath('icon.png'),
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'), // Ensure this path is correct
-      nodeIntegration: false,
-      contextIsolation: true,
+      preload: app.isPackaged
+        ? path.join(__dirname, 'preload.js')
+        : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
   });
 
@@ -217,7 +157,5 @@ app
       if (mainWindow === null) createWindow();
     });
   })
-  .catch((error) => {
-    console.error('Failed to create window:', error);
-    log.error('Failed to create window:', error);
-  });
+  .catch(console.log);
+

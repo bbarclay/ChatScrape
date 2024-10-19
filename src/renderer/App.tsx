@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import './App.css';
 import ErrorBoundary from './ErrorBoundary';
@@ -16,29 +16,67 @@ function App() {
   const [maxPages, setMaxPages] = useLocalStorage<number>('maxPages', 5);
   const [customFileName, setCustomFileName] = useLocalStorage<string>('customFileName', 'output.json');
   const [outputDir, setOutputDir] = useLocalStorage<string | null>('outputDir', null);
+  const [output, setOutput] = useState<string[]>([]);
 
   const outputEndRef = useRef<HTMLDivElement>(null);
 
   // Define handleSelectDirectory function
   const handleSelectDirectory = async (): Promise<void> => {
-    console.log('Directory selection function invoked.');
-    // Implementation for selecting directory
+    try {
+      const result = await window.electron.ipcRenderer.invoke('select-directory');
+      if (result.canceled) {
+        console.log('Directory selection canceled');
+        return;
+      }
+      const selectedDirectory = result.filePaths[0];
+      setOutputDir(selectedDirectory);
+      console.log('Selected directory:', selectedDirectory);
+    } catch (error) {
+      console.error('Error selecting directory:', error);
+    }
   };
   
   // Define the crawl-related state and logic
-  const crawlStatus = "idle"; // Example value
-  const isCrawling = false; // Example value
-  const finishedRequests = 0; // Example value
-  const totalRequests = 0; // Example value
+  const [crawlStatus, setCrawlStatus] = useState<string>('idle');
+  const [isCrawling, setIsCrawling] = useState<boolean>(false);
+  const [finishedRequests, setFinishedRequests] = useState<number>(0);
+  const [totalRequests, setTotalRequests] = useState<number>(0);
 
   const startCrawl = async () => {
-    console.log('Starting crawl...');
-    // Logic to start crawling
+    setIsCrawling(true);
+    setCrawlStatus('crawling');
+    setOutput([]);
+    try {
+      const result = await window.electron.ipcRenderer.invoke('start-crawl', {
+        url,
+        crawlDepth,
+        cssSelector,
+        maxPages,
+        customFileName,
+        outputDir
+      });
+      setOutput(prevOutput => [...prevOutput, result]);
+    } catch (error) {
+      console.error('Error during crawl:', error);
+      setOutput(prevOutput => [...prevOutput, `Error: ${error.message}`]);
+    } finally {
+      setIsCrawling(false);
+      setCrawlStatus('idle');
+    }
   };
 
   const stopCrawl = async () => {
-    console.log('Stopping crawl...');
-    // Logic to stop crawling
+    setIsCrawling(false);
+    setCrawlStatus('stopping');
+    try {
+      await window.electron.ipcRenderer.invoke('stop-crawl');
+      setOutput(prevOutput => [...prevOutput, 'Crawl stopped']);
+    } catch (error) {
+      console.error('Error stopping crawl:', error);
+      setOutput(prevOutput => [...prevOutput, `Error stopping crawl: ${error.message}`]);
+    } finally {
+      setCrawlStatus('idle');
+    }
   };
 
   return (
@@ -69,7 +107,7 @@ function App() {
               stopCrawl={stopCrawl}
             />
             <div className="flex-1 overflow-y-auto h-[calc(100vh-4rem)]">
-              <OutputDisplay output={[]} clearOutput={() => {}} />
+              <OutputDisplay output={output} clearOutput={() => setOutput([])} />
               <div ref={outputEndRef} />
             </div>
           </div>
@@ -80,3 +118,4 @@ function App() {
 }
 
 export default App;
+

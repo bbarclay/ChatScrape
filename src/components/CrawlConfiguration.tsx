@@ -46,7 +46,7 @@ const CrawlConfiguration: React.FC<CrawlConfigurationProps> = ({
         handleSelectDirectory={handleSelectDirectory} 
       />
       <UrlInput url={url} setUrl={setUrl} isCrawling={isCrawling} />
-      <CrawlDepthInput crawlDepth={crawlDepth} setCrawlDepth={setCrawlDepth} isCrawling={isCrawling} />
+      {/* <CrawlDepthInput crawlDepth={crawlDepth} setCrawlDepth={setCrawlDepth} isCrawling={isCrawling} /> */}
       <MatchPatternInput matchPattern={matchPattern} setMatchPattern={setMatchPattern} isCrawling={isCrawling} />
       <CssSelectorInput cssSelector={cssSelector} setCssSelector={setCssSelector} isCrawling={isCrawling} />
       <MaxPagesInput maxPages={maxPages} setMaxPages={setMaxPages} isCrawling={isCrawling} />
