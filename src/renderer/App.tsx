@@ -12,39 +12,79 @@ import {
   CrawlMessage,
 } from '../utils/outputParsing';
 
-const getLocalStorageItem = (key: string, defaultValue: string) =>
-  localStorage.getItem(key) || defaultValue;
-
 function App() {
-  const [config, setConfig] = useState({
-    url: getLocalStorageItem('url', 'https://www.builder.io/c/docs/developers'),
-    crawlDepth: parseInt(getLocalStorageItem('crawlDepth', '-1')),
-    cssSelector: getLocalStorageItem('cssSelector', 'body'),
-    maxPages: parseInt(getLocalStorageItem('maxPages', '5')),
-    customFileName: getLocalStorageItem('customFileName', 'output.json'),
-    outputDir: getLocalStorageItem('outputDir', ''),
-  });
-
+  const [url, setUrl] = useState<string>(
+    localStorage.getItem('url') || 'https://www.builder.io/c/docs/developers',
+  );
+  const [crawlDepth, setCrawlDepth] = useState<number>(
+    parseInt(localStorage.getItem('crawlDepth') || '-1'),
+  ); // Default to unlimited depth
+  const [cssSelector, setCssSelector] = useState<string>(
+    localStorage.getItem('cssSelector') || 'body',
+  );
+  const [maxPages, setMaxPages] = useState<number>(
+    parseInt(localStorage.getItem('maxPages') || '5'),
+  );
+  const [customFileName, setCustomFileName] = useState<string>(
+    localStorage.getItem('customFileName') || 'output.json',
+  );
   const [output, setOutput] = useState<CrawlMessage[]>([]);
-  const [crawlStatus, setCrawlStatus] = useState('');
-  const [isCrawling, setIsCrawling] = useState(false);
-  const [progress, setProgress] = useState({ total: 0, finished: 0 });
+  const [outputDir, setOutputDir] = useState<string | null>(
+    localStorage.getItem('outputDir') || null,
+  );
+  const [crawlStatus, setCrawlStatus] = useState<string>('');
+  const [isCrawling, setIsCrawling] = useState<boolean>(false);
+  const [totalRequests, setTotalRequests] = useState<number>(0);
+  const [finishedRequests, setFinishedRequests] = useState<number>(0);
   const outputEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    Object.entries(config).forEach(([key, value]) =>
-      localStorage.setItem(key, value.toString()));
-  }, [config]);
+    const savedDirectory = localStorage.getItem('outputDir');
+    if (savedDirectory) {
+      setOutputDir(savedDirectory);
+    }
+  }, []);
+
+  // Save to localStorage when values change
+  useEffect(() => {
+    localStorage.setItem('url', url);
+  }, [url]);
+
+  useEffect(() => {
+    localStorage.setItem('crawlDepth', crawlDepth.toString());
+  }, [crawlDepth]);
+
+  useEffect(() => {
+    localStorage.setItem('cssSelector', cssSelector);
+  }, [cssSelector]);
+
+  useEffect(() => {
+    localStorage.setItem('maxPages', maxPages.toString());
+  }, [maxPages]);
+
+  useEffect(() => {
+    localStorage.setItem('customFileName', customFileName);
+  }, [customFileName]);
 
   useEffect(() => {
     const handleCrawlOutput = (data: string) => {
       const parsedMessages = parseCrawlOutput(data);
-      setOutput(prev => [...prev, ...parsedMessages.filter(newMsg =>
-        !prev.some(msg => msg.content === newMsg.content && msg.type === newMsg.type))]);
+
+      setOutput((prev) => {
+        const newMessages = parsedMessages.filter(
+          (newMsg) =>
+            !prev.some(
+              (msg) =>
+                msg.content === newMsg.content && msg.type === newMsg.type,
+            ),
+        );
+        return [...prev, ...newMessages];
+      });
     };
 
     const handleCrawlStatusUpdate = (status: string) => {
       const { cleanStatus, progress } = parseCrawlStatus(status);
+
       if (!cleanStatus) return;
 
       const parsedStatus: CrawlMessage = {
@@ -53,21 +93,39 @@ function App() {
       };
 
       setCrawlStatus(cleanStatus);
-      setOutput(prev => prev.some(msg =>
-        msg.content === parsedStatus.content && msg.type === parsedStatus.type)
-        ? prev : [...prev, parsedStatus]);
+      setOutput((prev) => {
+        if (
+          prev.some(
+            (msg) =>
+              msg.content === parsedStatus.content &&
+              msg.type === parsedStatus.type,
+          )
+        ) {
+          return prev;
+        }
+        return [...prev, parsedStatus];
+      });
 
-      if (progress) setProgress({ total: progress.total, finished: progress.current });
+      if (progress) {
+        const { current, total } = progress;
+        setTotalRequests(total);
+        setFinishedRequests(current);
+      }
 
-      const isFinished = ['finished', 'completed', 'shut down'].some(word =>
-        cleanStatus.toLowerCase().includes(word));
+      const isFinished =
+        cleanStatus.toLowerCase().includes('finished') ||
+        cleanStatus.toLowerCase().includes('completed') ||
+        cleanStatus.toLowerCase().includes('shut down');
 
       if (isFinished) {
         setIsCrawling(false);
-        if (config.crawlDepth === 1) {
-          setProgress(prev => ({ ...prev, finished: 1 }));
+        if (crawlDepth === 1) {
+          setFinishedRequests(1);
           setCrawlStatus('Crawl completed.');
-          setOutput(prev => [...prev, { type: 'success', content: 'Crawl completed.' }]);
+          setOutput((prev) => [
+            ...prev,
+            { type: 'success', content: 'Crawl completed.' },
+          ]);
         }
       }
     };
@@ -79,17 +137,20 @@ function App() {
       window.electron.crawl.onCrawlOutput(handleCrawlOutput);
       window.electron.crawl.onCrawlStatus(handleCrawlStatusUpdate);
     };
-  }, [config.crawlDepth]);
+  }, [crawlDepth]);
 
   useEffect(() => {
-    outputEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (outputEndRef.current) {
+      outputEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [output]);
 
   const handleSelectDirectory = async () => {
     try {
       const directory = await window.electron.dialog.openDirectory();
       if (directory) {
-        setConfig(prev => ({ ...prev, outputDir: directory }));
+        setOutputDir(directory);
+        localStorage.setItem('outputDir', directory);
       }
     } catch (error) {
       console.error('Failed to select directory:', error);
@@ -98,62 +159,95 @@ function App() {
   };
 
   const startCrawl = async () => {
-    if (!config.outputDir) {
+    if (!outputDir) {
       alert('Please select an output folder.');
       return;
     }
 
-    if (!config.customFileName.endsWith('.json')) {
+    if (!customFileName.endsWith('.json')) {
       alert('Output file name must have a .json extension.');
       return;
     }
 
-    const cleanUrl = config.url.endsWith('/') ? config.url.slice(0, -1) : config.url;
-    const matchPattern = config.crawlDepth === -1 ? `${cleanUrl}/**` :
-                         config.crawlDepth === 2 ? `${cleanUrl}/*` :
-                         config.crawlDepth === 3 ? `${cleanUrl}/*/*` : cleanUrl;
+    const cleanUrl = url.endsWith('/') ? url.slice(0, -1) : url;
 
-    setProgress({ total: config.crawlDepth === 1 ? 1 : 0, finished: 0 });
+    let matchPattern = cleanUrl;
+    if (crawlDepth === 2) {
+      matchPattern = `${cleanUrl}/*`;
+    } else if (crawlDepth === 3) {
+      matchPattern = `${cleanUrl}/*/*`;
+    } else if (crawlDepth === -1) {
+      matchPattern = `${cleanUrl}/**`;
+    }
 
-    const crawlConfig = {
-      url: config.url,
+    if (crawlDepth === 1) {
+      setTotalRequests(1);
+      setFinishedRequests(0);
+    } else {
+      setFinishedRequests(0);
+    }
+
+    const config = {
+      url,
       match: matchPattern,
-      selector: config.cssSelector,
-      maxPagesToCrawl: config.maxPages,
-      outputDir: config.outputDir,
-      outputFileName: config.customFileName,
+      selector: cssSelector,
+      maxPagesToCrawl: maxPages,
+      outputDir,
+      outputFileName: customFileName,
     };
 
     try {
       setIsCrawling(true);
-      await window.electron.crawl.startCrawl(crawlConfig);
+      await window.electron.crawl.startCrawl(config);
       setCrawlStatus('Crawl initiated...');
-      setOutput(prev => [...prev, { type: 'info', content: 'Crawl initiated...' }]);
+      setOutput((prev) => [
+        ...prev,
+        { type: 'info', content: 'Crawl initiated...' },
+      ]);
 
-      if (config.crawlDepth === 1) {
-        setProgress({ total: 1, finished: 1 });
+      if (crawlDepth === 1) {
+        setFinishedRequests(1);
         setCrawlStatus('Crawl completed.');
-        setOutput(prev => [...prev, { type: 'success', content: 'Crawl completed.' }]);
+        setOutput((prev) => [
+          ...prev,
+          { type: 'success', content: 'Crawl completed.' },
+        ]);
         setIsCrawling(false);
       }
     } catch (error: any) {
       console.error('Error initiating crawl:', error);
-      setOutput(prev => [...prev, { type: 'error', content: `Error initiating crawl: ${error.message}` }]);
+      setOutput((prev) => [
+        ...prev,
+        { type: 'error', content: `Error initiating crawl: ${error.message}` },
+      ]);
       setIsCrawling(false);
     }
   };
 
   const stopCrawl = async () => {
-    if (window.confirm('Are you sure you want to stop the crawl?')) {
-      try {
-        await window.electron.crawl.stopCrawl();
-        setCrawlStatus('Crawl stopping...');
-        setOutput(prev => [...prev, { type: 'info', content: 'Crawl stopping...' }]);
-      } catch (error: any) {
-        console.error('Error stopping crawl:', error);
-        setOutput(prev => [...prev, { type: 'error', content: `Error stopping crawl: ${error.message}` }]);
-      }
+    const confirmStop = window.confirm(
+      'Are you sure you want to stop the crawl?',
+    );
+    if (!confirmStop) return;
+
+    try {
+      await window.electron.crawl.stopCrawl();
+      setCrawlStatus('Crawl stopping...');
+      setOutput((prev) => [
+        ...prev,
+        { type: 'info', content: 'Crawl stopping...' },
+      ]);
+    } catch (error: any) {
+      console.error('Error stopping crawl:', error);
+      setOutput((prev) => [
+        ...prev,
+        { type: 'error', content: `Error stopping crawl: ${error.message}` },
+      ]);
     }
+  };
+
+  const clearOutput = () => {
+    setOutput([]);
   };
 
   return (
@@ -162,21 +256,30 @@ function App() {
         <Header isCrawling={isCrawling} />
         <div className="flex-1 container flex">
           <CrawlConfiguration
-            {...config}
-            setConfig={setConfig}
             startCrawl={startCrawl}
             stopCrawl={stopCrawl}
+            outputDir={outputDir}
             handleSelectDirectory={handleSelectDirectory}
+            setUrl={setUrl}
+            setDepth={setCrawlDepth}
+            setCssSelector={setCssSelector}
+            setMaxPages={setMaxPages}
+            setCustomFileName={setCustomFileName}
             crawlStatus={crawlStatus}
+            url={url}
+            depth={crawlDepth}
+            cssSelector={cssSelector}
+            maxPages={maxPages}
+            customFileName={customFileName}
             isCrawling={isCrawling}
-            finishedRequests={progress.finished}
-            totalRequests={progress.total}
+            finishedRequests={finishedRequests}
+            totalRequests={totalRequests}
           />
           <div className="flex-1 overflow-y-auto h-[calc(100vh-4rem)]">
             <OutputDisplay
               output={output}
               outputEndRef={outputEndRef}
-              clearOutput={() => setOutput([])}
+              clearOutput={clearOutput}
             />
           </div>
         </div>
