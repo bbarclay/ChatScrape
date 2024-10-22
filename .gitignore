@@ -17,8 +17,7 @@ node_modules
 
 # OSX
 .DS_Store
-storage/*
-storge
+
 release/app/dist
 release/build
 .erb/dll
@@ -28,3 +27,7 @@ npm-debug.log.*
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts
+storage/*
+storage
+#git ignore the storage folder
+
