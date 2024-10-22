@@ -1,0 +1,9 @@
+{
+	"id": "Gy2BWs6JSyRMwlZ",
+	"json": "{\"id\":\"Gy2BWs6JSyRMwlZ\",\"url\":\"https://help.shopify.com/en/manual/migrating-to-shopify\",\"loadedUrl\":\"https://help.shopify.com/en/manual/migrating-to-shopify\",\"uniqueKey\":\"https://help.shopify.com/en/manual/migrating-to-shopify\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2024-10-22T20:58:03.248Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://help.shopify.com/en/manual/migrating-to-shopify",
+	"url": "https://help.shopify.com/en/manual/migrating-to-shopify"
+}

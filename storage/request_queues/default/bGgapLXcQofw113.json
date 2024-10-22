@@ -1,0 +1,9 @@
+{
+	"id": "bGgapLXcQofw113",
+	"json": "{\"id\":\"bGgapLXcQofw113\",\"url\":\"https://help.shopify.com/en/manual/intro-to-shopify\",\"loadedUrl\":\"https://help.shopify.com/en/manual/intro-to-shopify\",\"uniqueKey\":\"https://help.shopify.com/en/manual/intro-to-shopify\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2024-10-22T20:58:02.469Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://help.shopify.com/en/manual/intro-to-shopify",
+	"url": "https://help.shopify.com/en/manual/intro-to-shopify"
+}

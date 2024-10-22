@@ -1,0 +1,9 @@
+{
+	"id": "1tKPNHJcawxaOEn",
+	"json": "{\"id\":\"1tKPNHJcawxaOEn\",\"url\":\"https://help.shopify.com/en/user/login?returnTo=https%3A%2F%2Fhelp.shopify.com%2Fen%2F\",\"loadedUrl\":\"https://accounts.shopify.com/lookup?rid=8de3c70e-d9e0-4286-9a03-d54ebef3aa47&verify=1729630679-QWF%2Bbwe1bouj9nzeaTy3BKQewLw%2BJte600tnrpoPNcQ%3D\",\"uniqueKey\":\"https://help.shopify.com/en/user/login?returnTo=https%3A%2F%2Fhelp.shopify.com%2Fen%2F\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2024-10-22T20:58:01.894Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://help.shopify.com/en/user/login?returnTo=https%3A%2F%2Fhelp.shopify.com%2Fen%2F",
+	"url": "https://help.shopify.com/en/user/login?returnTo=https%3A%2F%2Fhelp.shopify.com%2Fen%2F"
+}

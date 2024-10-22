@@ -1,0 +1,9 @@
+{
+	"id": "EI4XAP0dKWUPC1X",
+	"json": "{\"id\":\"EI4XAP0dKWUPC1X\",\"url\":\"https://help.shopify.com/en/manual/checkout-settings/checkout-form-options\",\"uniqueKey\":\"https://help.shopify.com/en/manual/checkout-settings/checkout-form-options\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
+	"method": "GET",
+	"orderNo": 1729630683224,
+	"retryCount": 0,
+	"uniqueKey": "https://help.shopify.com/en/manual/checkout-settings/checkout-form-options",
+	"url": "https://help.shopify.com/en/manual/checkout-settings/checkout-form-options"
+}

@@ -1,0 +1,252 @@
+{
+  "usableSessionsCount": 5,
+  "retiredSessionsCount": 0,
+  "sessions": [
+    {
+      "id": "session_j8yQvgnNxL",
+      "cookieJar": {
+        "version": "tough-cookie@5.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2024-10-22T21:47:55.510Z",
+      "createdAt": "2024-10-22T20:57:55.510Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_uhgqrXmCX4",
+      "cookieJar": {
+        "version": "tough-cookie@5.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "__session",
+            "value": "eyJzZXNzaW9uSWQiOiI4NjE3NGY4NC01ZTIyLTRkYmEtOTFiZi0xZjY4MDRkZGYzMWYifQ%3D%3D.uSNc0LLITRPF10dyanUVY%2FC2Y7BoNT%2F4cU1qJnafQiY",
+            "expires": "2024-10-22T23:58:02.515Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2024-10-22T20:57:58.729Z",
+            "lastAccessed": "2024-10-22T20:58:03.028Z"
+          },
+          {
+            "key": "_shopify_s",
+            "value": "88df2e18-81bf-4be4-ad21-34f63ee7a181",
+            "expires": "2024-10-22T21:28:01.000Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2024-10-22T20:58:01.547Z",
+            "lastAccessed": "2024-10-22T20:58:03.027Z"
+          },
+          {
+            "key": "device_id",
+            "value": "maWbFaR%2F%2BaleNLbGjB1pRHFdi%2FsO3MsGPdxwxI03wEP0md%2BRfV3I8pSNchWUmwsF418cLl4jqdH%2B1IEmdMa1%2F03lwzqdez6K%2FFVREfIpB%2FQYnz7xoeH%2FcBlyx%2BtygkRYyd01CNDD%2BdbjcjUQWxd1U7c%3D--HMXGDbONGiMR%2Bf0I--Abodk%2F6UHEdFkrxqDpErlQ%3D%3D",
+            "expires": "2025-11-26T20:57:59.793Z",
+            "domain": "accounts.shopify.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": true,
+            "creation": "2024-10-22T20:58:01.548Z",
+            "lastAccessed": "2024-10-22T20:58:01.548Z"
+          },
+          {
+            "key": "master_device_id",
+            "value": "ad07af78-8565-4c6f-8c51-5b6227af5806",
+            "expires": "2025-10-22T20:57:59.113Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2024-10-22T20:58:01.548Z",
+            "lastAccessed": "2024-10-22T20:58:03.029Z"
+          },
+          {
+            "key": "_identity_session",
+            "value": "c95b28303cee9cc0ffc5fe36d7185d8e",
+            "expires": "2025-11-26T20:58:00.113Z",
+            "domain": "accounts.shopify.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": true,
+            "creation": "2024-10-22T20:58:01.551Z",
+            "lastAccessed": "2024-10-22T20:58:01.551Z"
+          },
+          {
+            "key": "__Host-_identity_session_same_site",
+            "value": "c95b28303cee9cc0ffc5fe36d7185d8e",
+            "expires": "2025-11-26T20:58:00.113Z",
+            "domain": "accounts.shopify.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": true,
+            "creation": "2024-10-22T20:58:01.551Z",
+            "lastAccessed": "2024-10-22T20:58:01.551Z"
+          },
+          {
+            "key": "_shopify_y",
+            "value": "65f4b1e5-094f-4191-833b-7f59b75c4656",
+            "expires": "2025-10-17T20:58:01.000Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2024-10-22T20:58:01.552Z",
+            "lastAccessed": "2024-10-22T20:58:03.033Z"
+          },
+          {
+            "key": "_ga_W6NECZNE63",
+            "value": "GS1.1.1729630681.1.0.1729630681.0.0.385243463",
+            "expires": "2025-11-26T20:58:01.761Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2024-10-22T20:58:02.370Z",
+            "lastAccessed": "2024-10-22T20:58:03.033Z"
+          },
+          {
+            "key": "_ga",
+            "value": "GA1.1.312020848.1729630682",
+            "expires": "2025-11-26T20:58:01.762Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2024-10-22T20:58:02.370Z",
+            "lastAccessed": "2024-10-22T20:58:03.033Z"
+          },
+          {
+            "key": "FPID",
+            "value": "FPID2.2.aTVtOs7d0y5UrxTf70%2B2z0kWxoF8TOjSkjcDJ81xeqY%3D.1729630682",
+            "expires": "2025-11-26T20:58:02.565Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "secure": true,
+            "httpOnly": true,
+            "hostOnly": false,
+            "creation": "2024-10-22T20:58:03.034Z",
+            "lastAccessed": "2024-10-22T20:58:03.034Z"
+          },
+          {
+            "key": "FPLC",
+            "value": "ctKvfUW9RHVICqNDkwlNeDC7B23PSTwcZV0KceUjS1hhBXSmraBjtB0BNLMS%2BF%2BuCNMIhLR4uyiVuUGc1fg3DeGzm2y87FSZ0nMNwaFgiBB72NBslqoVA4xAqRB%2FAg%3D%3D",
+            "expires": "2024-10-23T16:58:02.565Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2024-10-22T20:58:03.034Z",
+            "lastAccessed": "2024-10-22T20:58:03.034Z"
+          },
+          {
+            "key": "FPAU",
+            "value": "1.2.1018884204.1729630683",
+            "expires": "2025-01-20T20:58:02.565Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2024-10-22T20:58:03.034Z",
+            "lastAccessed": "2024-10-22T20:58:03.034Z"
+          },
+          {
+            "key": "FPGSID",
+            "value": "1.1729630682.1729630682.G-B7X5MKCR35.SbtavGJKpYlvlptEmKdk2Q",
+            "expires": "2024-10-22T21:28:02.565Z",
+            "domain": "shopify.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2024-10-22T20:58:03.034Z",
+            "lastAccessed": "2024-10-22T20:58:03.034Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2024-10-22T21:47:55.514Z",
+      "createdAt": "2024-10-22T20:57:55.514Z",
+      "usageCount": 8,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_DHjAmVVcNk",
+      "cookieJar": {
+        "version": "tough-cookie@5.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2024-10-22T21:47:58.998Z",
+      "createdAt": "2024-10-22T20:57:58.998Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_Gd90VYRWj9",
+      "cookieJar": {
+        "version": "tough-cookie@5.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2024-10-22T21:47:59.000Z",
+      "createdAt": "2024-10-22T20:57:59.000Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_ZYwF1caJtU",
+      "cookieJar": {
+        "version": "tough-cookie@5.0.0",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2024-10-22T21:48:01.951Z",
+      "createdAt": "2024-10-22T20:58:01.951Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    }
+  ]
+}

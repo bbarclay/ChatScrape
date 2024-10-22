@@ -1,0 +1,9 @@
+{
+	"id": "0xNUMPllcSfYyIG",
+	"json": "{\"id\":\"0xNUMPllcSfYyIG\",\"url\":\"https://help.shopify.com/en/manual/your-account/logging-in#desktop\",\"uniqueKey\":\"https://help.shopify.com/en/manual/your-account/logging-in\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
+	"method": "GET",
+	"orderNo": 1729630681891,
+	"retryCount": 0,
+	"uniqueKey": "https://help.shopify.com/en/manual/your-account/logging-in",
+	"url": "https://help.shopify.com/en/manual/your-account/logging-in#desktop"
+}

@@ -1,0 +1,9 @@
+{
+	"id": "0xHcx6l5D7XhiH0",
+	"json": "{\"id\":\"0xHcx6l5D7XhiH0\",\"url\":\"https://help.shopify.com/en/manual/b2b\",\"uniqueKey\":\"https://help.shopify.com/en/manual/b2b\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
+	"method": "GET",
+	"orderNo": 1729630858972,
+	"retryCount": 0,
+	"uniqueKey": "https://help.shopify.com/en/manual/b2b",
+	"url": "https://help.shopify.com/en/manual/b2b"
+}

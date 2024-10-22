@@ -1,0 +1,9 @@
+{
+	"id": "sOltfVM43Uswibj",
+	"json": "{\"id\":\"sOltfVM43Uswibj\",\"url\":\"https://help.shopify.com/en/manual/payments/payment-authorization\",\"uniqueKey\":\"https://help.shopify.com/en/manual/payments/payment-authorization\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
+	"method": "GET",
+	"orderNo": 1729630683222,
+	"retryCount": 0,
+	"uniqueKey": "https://help.shopify.com/en/manual/payments/payment-authorization",
+	"url": "https://help.shopify.com/en/manual/payments/payment-authorization"
+}

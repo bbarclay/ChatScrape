@@ -1,0 +1,9 @@
+{
+	"id": "pYSNuExRQru0KQS",
+	"json": "{\"id\":\"pYSNuExRQru0KQS\",\"url\":\"https://help.shopify.com/en/manual/payments/third-party-providers\",\"uniqueKey\":\"https://help.shopify.com/en/manual/payments/third-party-providers\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
+	"method": "GET",
+	"orderNo": 1729630683220,
+	"retryCount": 0,
+	"uniqueKey": "https://help.shopify.com/en/manual/payments/third-party-providers",
+	"url": "https://help.shopify.com/en/manual/payments/third-party-providers"
+}
