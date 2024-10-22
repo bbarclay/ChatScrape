@@ -1,5 +1,3 @@
-// src/main/main.ts
-
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
@@ -7,7 +5,8 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
-const { startCrawl } = require('./crawler'); // Import the crawler module
+// Import the crawler module
+const { startCrawl } = require('./crawler');
 
 class AppUpdater {
   constructor() {
@@ -56,6 +55,11 @@ ipcMain.handle('start-crawl', async (event, config) => {
     // Start the crawler process
     crawlProcess = startCrawl(config);
 
+    if (!crawlProcess) {
+      event.sender.send('crawl-status', 'Failed to start crawl.');
+      return;
+    }
+
     // Listen to stdout and stderr from the crawler process
     crawlProcess.stdout.on('data', (data: string) => {
       event.sender.send('crawl-output', data);
@@ -68,7 +72,7 @@ ipcMain.handle('start-crawl', async (event, config) => {
     crawlProcess.on('error', (error: Error) => {
       event.sender.send(
         'crawl-status',
-        `Crawl encountered an error: ${error.message}`,
+        `Crawl encountered an error: ${error.message}`
       );
       log.error('Crawl process error:', error);
       crawlProcess = null;
@@ -90,7 +94,7 @@ ipcMain.handle('start-crawl', async (event, config) => {
       } else {
         event.sender.send(
           'crawl-status',
-          `Crawl process closed with code ${code}.`,
+          `Crawl process closed with code ${code}.`
         );
       }
       log.info(`Crawl process closed with code ${code}`);
@@ -119,7 +123,7 @@ ipcMain.handle('stop-crawl', async (event) => {
       log.error('Error stopping crawl:', error);
       event.sender.send(
         'crawl-status',
-        `Error stopping crawl: ${error.message}`,
+        `Error stopping crawl: ${error.message}`
       );
     }
   } else {
@@ -147,7 +151,7 @@ const installExtensions = async () => {
   return installer
     .default(
       extensions.map((name: string) => installer[name]),
-      forceDownload,
+      forceDownload
     )
     .catch(console.log);
 };
@@ -213,8 +217,7 @@ const createWindow = async () => {
  */
 
 app.on('window-all-closed', () => {
-  // Respect the OSX convention of having the application in memory even
-  // after all windows have been closed
+  // Respect the OSX convention of having the application in memory even after all windows have been closed
   if (process.platform !== 'darwin') {
     app.quit();
   }
@@ -225,8 +228,7 @@ app
   .then(() => {
     createWindow();
     app.on('activate', () => {
-      // On macOS it's common to re-create a window in the app when the
-      // dock icon is clicked and there are no other windows open.
+      // On macOS it's common to re-create a window in the app when the dock icon is clicked and there are no other windows open.
       if (mainWindow === null) createWindow();
     });
   })

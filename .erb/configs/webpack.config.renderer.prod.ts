@@ -50,7 +50,6 @@ const configuration: webpack.Configuration = {
               importLoaders: 1,
             },
           },
-          'sass-loader',
         ],
         include: /\.module\.s?(c|a)ss$/,
       },
@@ -58,9 +57,7 @@ const configuration: webpack.Configuration = {
         test: /\.s?(a|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
-          // **Added postcss-loader to process Tailwind CSS and Autoprefixer**
+          'css-loader',          // **Added postcss-loader to process Tailwind CSS and Autoprefixer**
           {
             loader: 'postcss-loader',
             options: {
