@@ -1,5 +1,26 @@
 import React, { useState } from 'react';
 
+interface CrawlConfigurationProps {
+  startCrawl: () => Promise<void>;
+  stopCrawl: () => Promise<void>;
+  outputDir: string | null;
+  handleSelectDirectory: () => Promise<void>;
+  setUrl: React.Dispatch<React.SetStateAction<string>>;
+  setCssSelector: React.Dispatch<React.SetStateAction<string>>;
+  setMaxPages: React.Dispatch<React.SetStateAction<number>>;
+  setCustomFileName: React.Dispatch<React.SetStateAction<string>>;
+  setMatchPattern: React.Dispatch<React.SetStateAction<string>>; // Made required
+  crawlStatus: string;
+  url: string;
+  cssSelector: string;
+  maxPages: number;
+  customFileName: string;
+  matchPattern: string; // Made required
+  isCrawling: boolean;
+  finishedRequests: number;
+  totalRequests: number;
+}
+
 const CrawlConfiguration: React.FC<CrawlConfigurationProps> = ({
   startCrawl,
   stopCrawl,
