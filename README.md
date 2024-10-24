@@ -48,6 +48,20 @@ To package apps for the local platform:
 npm run package
 ```
 
+## Enabling/Disabling Crash Report Mechanism
+
+To enable the crash report mechanism, set the `ENABLE_CRASH_REPORT` environment variable to `true`:
+
+```bash
+export ENABLE_CRASH_REPORT=true
+```
+
+To disable the crash report mechanism, set the `ENABLE_CRASH_REPORT` environment variable to `false`:
+
+```bash
+export ENABLE_CRASH_REPORT=false
+```
+
 ## Docs
 
 See our [docs and guides here](https://electron-react-boilerplate.js.org/docs/installation)

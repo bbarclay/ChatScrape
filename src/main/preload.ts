@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import log from 'electron-log';
 
 // Define Channels as a constant array (runtime value)
 const channels = [
@@ -84,6 +85,16 @@ const electronHandler = {
     },
   },
 };
+
+if (process.env.ENABLE_CRASH_REPORT === 'true') {
+  log.transports.file.level = 'error';
+  process.on('uncaughtException', (error) => {
+    log.error('Uncaught Exception:', error);
+  });
+  process.on('unhandledRejection', (reason) => {
+    log.error('Unhandled Rejection:', reason);
+  });
+}
 
 contextBridge.exposeInMainWorld('electron', electronHandler);
 
