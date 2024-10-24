@@ -6,6 +6,7 @@ import path from 'path';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { merge } from 'webpack-merge';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import checkNodeEnv from '../scripts/check-node-env';
 import baseConfig from './webpack.config.base';
 import webpackPaths from './webpack.paths';
@@ -52,6 +53,10 @@ const configuration: webpack.Configuration = {
       NODE_ENV: 'development',
       DEBUG_PROD: false,
       START_MINIMIZED: false,
+    }),
+
+    new MiniCssExtractPlugin({
+      filename: 'style.[contenthash].css',
     }),
   ],
 
