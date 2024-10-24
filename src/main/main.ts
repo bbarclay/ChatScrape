@@ -53,53 +53,7 @@ ipcMain.handle('start-crawl', async (event, config) => {
 
   try {
     // Start the crawler process
-    crawlProcess = startCrawl(config);
-
-    if (!crawlProcess) {
-      event.sender.send('crawl-status', 'Failed to start crawl.');
-      return;
-    }
-
-    // Listen to stdout and stderr from the crawler process
-    crawlProcess.stdout.on('data', (data: string) => {
-      event.sender.send('crawl-output', data);
-    });
-
-    crawlProcess.stderr.on('data', (data: string) => {
-      event.sender.send('crawl-output', `Error: ${data}`);
-    });
-
-    crawlProcess.on('error', (error: Error) => {
-      event.sender.send(
-        'crawl-status',
-        `Crawl encountered an error: ${error.message}`
-      );
-      log.error('Crawl process error:', error);
-      crawlProcess = null;
-    });
-
-    crawlProcess.on('exit', (code: number) => {
-      if (code === 0) {
-        event.sender.send('crawl-status', 'Crawl completed successfully.');
-      } else {
-        event.sender.send('crawl-status', `Crawl exited with code ${code}.`);
-      }
-      log.info(`Crawl process exited with code ${code}`);
-      crawlProcess = null;
-    });
-
-    crawlProcess.on('close', (code: number) => {
-      if (code === 0) {
-        event.sender.send('crawl-status', 'Crawl process closed successfully.');
-      } else {
-        event.sender.send(
-          'crawl-status',
-          `Crawl process closed with code ${code}.`
-        );
-      }
-      log.info(`Crawl process closed with code ${code}`);
-      crawlProcess = null;
-    });
+    await startCrawl(config);
 
     event.sender.send('crawl-status', 'Crawl started successfully.');
     log.info('Crawl started successfully.');
