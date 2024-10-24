@@ -54,6 +54,12 @@ const configuration: webpack.Configuration = {
       NODE_ENV: 'production',
     }),
   ],
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };
 
 export default configuration;

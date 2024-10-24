@@ -5,8 +5,8 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
-// Import the crawler module
-const { startCrawl } = require('./crawler');
+// Import the crawler module using import syntax
+import { startCrawl } from './crawler';
 
 class AppUpdater {
   constructor() {
