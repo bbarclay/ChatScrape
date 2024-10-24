@@ -1,9 +1,0 @@
-{
-	"id": "y45bnVARfYt6759",
-	"json": "{\"id\":\"y45bnVARfYt6759\",\"url\":\"https://help.shopify.com/en/\",\"loadedUrl\":\"https://help.shopify.com/en/\",\"uniqueKey\":\"https://help.shopify.com/en\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2024-10-22T20:57:58.962Z\"}",
-	"method": "GET",
-	"orderNo": null,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en",
-	"url": "https://help.shopify.com/en/"
-}

@@ -1,9 +1,0 @@
-{
-	"id": "NjR0hCmVQlpS6ix",
-	"json": "{\"id\":\"NjR0hCmVQlpS6ix\",\"url\":\"https://help.shopify.com/en/manual/fulfillment/managing-orders/refunding-orders\",\"uniqueKey\":\"https://help.shopify.com/en/manual/fulfillment/managing-orders/refunding-orders\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630683228,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/fulfillment/managing-orders/refunding-orders",
-	"url": "https://help.shopify.com/en/manual/fulfillment/managing-orders/refunding-orders"
-}

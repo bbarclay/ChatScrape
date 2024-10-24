@@ -1,9 +1,0 @@
-{
-	"id": "v3SMQILfyRUCqdN",
-	"json": "{\"id\":\"v3SMQILfyRUCqdN\",\"url\":\"https://help.shopify.com/en/manual/fulfillment/setup/locations\",\"uniqueKey\":\"https://help.shopify.com/en/manual/fulfillment/setup/locations\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630683208,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/fulfillment/setup/locations",
-	"url": "https://help.shopify.com/en/manual/fulfillment/setup/locations"
-}

@@ -1,9 +1,0 @@
-{
-	"id": "Ko305GVoHg2uUnk",
-	"json": "{\"id\":\"Ko305GVoHg2uUnk\",\"url\":\"https://help.shopify.com/en/manual/fulfillment/setup/notifications\",\"uniqueKey\":\"https://help.shopify.com/en/manual/fulfillment/setup/notifications\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630683230,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/fulfillment/setup/notifications",
-	"url": "https://help.shopify.com/en/manual/fulfillment/setup/notifications"
-}

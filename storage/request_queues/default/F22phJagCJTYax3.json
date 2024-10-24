@@ -1,9 +1,0 @@
-{
-	"id": "F22phJagCJTYax3",
-	"json": "{\"id\":\"F22phJagCJTYax3\",\"url\":\"https://help.shopify.com/en/manual/fulfillment/setup/shipping-rates\",\"uniqueKey\":\"https://help.shopify.com/en/manual/fulfillment/setup/shipping-rates\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630683211,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/fulfillment/setup/shipping-rates",
-	"url": "https://help.shopify.com/en/manual/fulfillment/setup/shipping-rates"
-}

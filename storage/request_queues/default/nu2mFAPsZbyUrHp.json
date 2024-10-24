@@ -1,9 +1,0 @@
-{
-	"id": "nu2mFAPsZbyUrHp",
-	"json": "{\"id\":\"nu2mFAPsZbyUrHp\",\"url\":\"https://help.shopify.com/en/manual/fulfillment/setup/fulfillment-options\",\"uniqueKey\":\"https://help.shopify.com/en/manual/fulfillment/setup/fulfillment-options\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630683213,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/fulfillment/setup/fulfillment-options",
-	"url": "https://help.shopify.com/en/manual/fulfillment/setup/fulfillment-options"
-}

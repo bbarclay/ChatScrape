@@ -1,9 +1,0 @@
-{
-	"id": "ESa0X8erronevQu",
-	"json": "{\"id\":\"ESa0X8erronevQu\",\"url\":\"https://help.shopify.com/en/manual/taxes/location#charge-taxes-on-shipping-rates\",\"uniqueKey\":\"https://help.shopify.com/en/manual/taxes/location\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630683216,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/taxes/location",
-	"url": "https://help.shopify.com/en/manual/taxes/location#charge-taxes-on-shipping-rates"
-}

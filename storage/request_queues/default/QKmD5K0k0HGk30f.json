@@ -1,9 +1,0 @@
-{
-	"id": "QKmD5K0k0HGk30f",
-	"json": "{\"id\":\"QKmD5K0k0HGk30f\",\"url\":\"https://help.shopify.com/en/manual/payments/getting-paid\",\"uniqueKey\":\"https://help.shopify.com/en/manual/payments/getting-paid\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630683219,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/payments/getting-paid",
-	"url": "https://help.shopify.com/en/manual/payments/getting-paid"
-}

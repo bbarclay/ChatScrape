@@ -1,9 +1,0 @@
-{
-	"id": "ttezT4McDDdgsyV",
-	"json": "{\"id\":\"ttezT4McDDdgsyV\",\"url\":\"https://help.shopify.com/en/manual/payments\",\"uniqueKey\":\"https://help.shopify.com/en/manual/payments\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630858972,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/payments",
-	"url": "https://help.shopify.com/en/manual/payments"
-}

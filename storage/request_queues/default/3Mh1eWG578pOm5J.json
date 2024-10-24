@@ -1,9 +1,0 @@
-{
-	"id": "3Mh1eWG578pOm5J",
-	"json": "{\"id\":\"3Mh1eWG578pOm5J\",\"url\":\"https://help.shopify.com/en/manual/checkout-settings\",\"uniqueKey\":\"https://help.shopify.com/en/manual/checkout-settings\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630858972,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/checkout-settings",
-	"url": "https://help.shopify.com/en/manual/checkout-settings"
-}

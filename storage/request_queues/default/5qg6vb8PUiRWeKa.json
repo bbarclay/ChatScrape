@@ -1,9 +1,0 @@
-{
-	"id": "5qg6vb8PUiRWeKa",
-	"json": "{\"id\":\"5qg6vb8PUiRWeKa\",\"url\":\"https://help.shopify.com/en/manual/products/import-export/import-products\",\"uniqueKey\":\"https://help.shopify.com/en/manual/products/import-export/import-products\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{}}",
-	"method": "GET",
-	"orderNo": 1729630683198,
-	"retryCount": 0,
-	"uniqueKey": "https://help.shopify.com/en/manual/products/import-export/import-products",
-	"url": "https://help.shopify.com/en/manual/products/import-export/import-products"
-}
