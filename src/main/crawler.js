@@ -1,6 +1,6 @@
-const { crawl } = require('@builder.io/gpt-crawler');
-const fs = require('fs');
-const path = require('path');
+import { crawl } from '@builder.io/gpt-crawler';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Executes the crawler with the provided configuration.
@@ -57,4 +57,4 @@ async function startCrawl(config) {
   }
 }
 
-module.exports = { startCrawl };
+export { startCrawl };
