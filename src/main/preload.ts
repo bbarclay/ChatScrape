@@ -1,5 +1,3 @@
-// src/main/preload.ts
-
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 // Define Channels as a constant array (runtime value)
