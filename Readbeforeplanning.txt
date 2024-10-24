@@ -1,0 +1,17 @@
+# Read Before Planning
+
+## Description of the Problem
+Every time you try to solve the issue, you end up in a loop. This file is a reminder to read it before planning any further changes.
+
+## Steps Taken
+1. Looked through all the files in the repository and made a plan to make this work.
+2. Pulled down the repository about `@builder.io/gpt-crawler`, analyzed their files, and checked what we are doing wrong.
+3. Ran `npm run build` in a terminal to see why the code is not working.
+4. Brainstormed more ideas after reading about the repositories.
+
+## Errors Encountered
+1. Error related to the missing module `@builder.io/gpt-crawler`.
+2. Error related to multiple chunks emitting assets to the same filename `renderer.js`.
+
+## Reminder
+Check this file before attempting to solve the issue again.
