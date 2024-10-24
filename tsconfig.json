@@ -17,7 +17,8 @@
     "paths": {
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
-      "@node_modules/*": ["node_modules/*"]
+      "@node_modules/*": ["node_modules/*"],
+      "@builder.io/gpt-crawler": ["node_modules/@builder.io/gpt-crawler"]
     }
   },
   "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
